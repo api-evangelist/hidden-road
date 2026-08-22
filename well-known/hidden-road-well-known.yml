@@ -1,0 +1,93 @@
+generated: '2026-08-22'
+method: probed
+source: Live unauthenticated probes, 2026-08-22
+note: >-
+  Six hosts probed. The only real hits are on auth.hiddenroad.com, Hidden Road's Auth0 tenant,
+  which serves a full RFC 8414 / OIDC discovery document plus a JWKS. hiddenroad.com answers
+  301 on every path — including /.well-known/* — and lands on a single Ripple marketing page,
+  so every 200 reached through it is a soft-404 and none is a document. api.hiddenroad.com and
+  api.sandbox.hiddenroad.com are AWS API Gateway hosts that answer 403 "Missing Authentication
+  Token" for any unrouted path.
+hosts:
+- host: auth.hiddenroad.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: hidden-road-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: hidden-road-oauth-authorization-server.json
+  - path: /.well-known/jwks.json
+    status: 200
+    file: hidden-road-jwks.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: api.hiddenroad.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+- host: api.sandbox.hiddenroad.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+- host: hiddenroad.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+  - path: /.well-known/openid-configuration
+    status: 301
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+  - path: /.well-known/api-catalog
+    status: 301
+  - path: /.well-known/ai-plugin.json
+    status: 301
+  - path: /.well-known/agent-card.json
+    status: 301
+  - path: /.well-known/agent.json
+    status: 301
+- host: ripple.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: static.hiddenroad.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    note: S3 website endpoint; returns an S3 NoSuchKey error document.

@@ -1,0 +1,40 @@
+generated: '2026-08-22'
+method: searched
+source: >-
+  Searched npm, PyPI, GitHub and the public Hidden Road / Ripple Prime surface for a hosted or
+  stdio MCP server; probed api.hiddenroad.com and auth.hiddenroad.com for MCP and OAuth
+  protected-resource metadata.
+status: none
+server_published: false
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+tools: []
+note: >-
+  Hidden Road publishes no MCP server, hosted or local. No candidate tool list is derived here
+  either: deriving one requires an OpenAPI to bind tools to operations, and Hidden Road publishes
+  no contract. The four live service routes under https://api.hiddenroad.com/v0/ are known by
+  path only, with no operation, parameter or request-body schema behind them, so any tool list
+  would be invented rather than derived. NO MCPServer pointer is wired into apis.yml — this file
+  records a verified absence, not a surface.
+searched:
+- registry: npm
+  query: hiddenroad
+  results: 0
+- registry: PyPI
+  package: hiddenroad
+  status: 404
+- registry: PyPI
+  package: hidden-road
+  status: 404
+- registry: GitHub
+  query: org:hiddenroad
+  status: no organization (github.com/hiddenroad is an unrelated personal account, 0 public repos)
+- url: https://api.hiddenroad.com/.well-known/oauth-protected-resource
+  status: 403
+- url: https://auth.hiddenroad.com/.well-known/oauth-protected-resource
+  status: 404

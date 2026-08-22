@@ -1,0 +1,29 @@
+generated: '2026-08-22'
+method: probed
+source: >-
+  Live unauthenticated requests to https://api.hiddenroad.com/v0/* and a search of every public
+  Hidden Road / Ripple Prime page
+limit_count: 0
+documented: false
+note: >-
+  No rate limits are published anywhere. Hidden Road ships no public API reference, so there is
+  no documented quota, window, burst allowance or throttling policy for any of the four live
+  services. Unauthenticated probes were answered 401 with no rate-limit headers of any kind, so
+  nothing could be observed at runtime either — the limits, if any, sit behind the auth
+  boundary.
+observed_headers:
+  ratelimit_standard: none
+  x_ratelimit: none
+  retry_after: none
+  observed_on: https://api.hiddenroad.com/v0/accountactivity/ping (HTTP 401)
+  note: >-
+    Response headers on the 401 are AWS API Gateway/CloudFront defaults only
+    (x-amzn-RequestId, x-amz-apigw-id, x-amzn-Trace-Id, via, x-amz-cf-id). No RateLimit-*,
+    X-RateLimit-* or Retry-After header is emitted.
+exhaustion_status: unknown
+limits: []
+impact: >-
+  An integrator — human or agent — cannot size a polling loop against the Account Activity or
+  Risk streams without asking their coverage contact. For an API whose stated selling point is
+  real-time streaming of positions and margin utilisation, the absence of a published limit and
+  of any runtime rate-limit signal is a material agent-readiness gap.

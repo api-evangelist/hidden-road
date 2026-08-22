@@ -1,0 +1,24 @@
+generated: '2026-08-22'
+method: searched
+source: https://ripple.com/products/prime-brokerage/
+plan_count: 0
+self_serve: false
+pricing_page: null
+note: >-
+  Hidden Road publishes no plans, tiers, rate card or price list of any kind. It is an
+  institutional prime broker: commercial terms (financing rates, clearing fees, margin terms,
+  minimum account size) are negotiated per counterparty under a signed agreement. There is no
+  pricing page on ripple.com/products/prime-brokerage/, no free tier, no trial, and no
+  self-serve signup — the only commercial call to action is a contact-sales form. The API is
+  bundled with the brokerage relationship rather than sold or metered separately, so there is
+  nothing to record here. An honest zero, not a gap in the search.
+searched:
+- url: https://ripple.com/products/prime-brokerage/
+  status: 200
+  found: No pricing section; "Contact Sales" CTA only.
+- url: https://ripple.com/contact/sales/
+  status: 200
+  found: Sales contact form.
+- url: https://hiddenroad.com/
+  status: 301
+  found: Redirects to the Ripple Prime product page; no legacy pricing page survives.

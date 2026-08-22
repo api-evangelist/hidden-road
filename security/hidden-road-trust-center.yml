@@ -1,0 +1,46 @@
+generated: '2026-08-22'
+method: searched
+source: https://ripple.com/products/prime-brokerage/
+url: https://ripple.com/security/
+attribution_note: >-
+  Hidden Road was acquired by Ripple in 2025 and now trades as Ripple Prime; hiddenroad.com
+  301s to ripple.com/products/prime-brokerage/. The SOC 2 Type II claim below is
+  PRODUCT-ATTRIBUTED — it is a badge rendered on the Ripple Prime product page itself, and it
+  matches Hidden Road's own 2023/2024 announcements of SOC 2 Type 1, SOC 2 Type 2 (AICPA +
+  ISAE 3000) and UK Cyber Essentials. The ISO 27001 claim is recorded as PARENT-ONLY: it
+  appears on Ripple's corporate security page with no product attribution and Hidden Road
+  never announced it, so it must not be read as a Hidden Road certification.
+certifications:
+- name: SOC 2 Type II
+  attributed_to: Ripple Prime (Hidden Road)
+  evidence: https://ripple.com/products/prime-brokerage/
+  note: Rendered as a "SOC 2 Type II Compliant" badge on the Ripple Prime product page.
+- name: ISO 27001
+  attributed_to: Ripple (parent) — NOT attributed to Hidden Road / Ripple Prime
+  evidence: https://ripple.com/security/
+  note: >-
+    Listed on Ripple's corporate security page with no product scope. Recorded for
+    completeness; do not credit Hidden Road with it.
+historical_certifications:
+- name: SOC 2 Type 1 + UK Cyber Essentials
+  announced_by: Hidden Road
+  source: https://hiddenroad.com/hidden-road-achieves-soc-2-type-1-and-uk-cyber-essentials-certifications/
+  status: source page now 301s to ripple.com/products/prime-brokerage/ (soft-404)
+- name: SOC 2 Type 2 (AICPA + ISAE 3000)
+  announced_by: Hidden Road
+  source: https://hiddenroad.com/hidden-road-achieves-soc-2-type-2-compliance-with-aicpa-and-isae3000-standards/
+  status: source page now 301s to ripple.com/products/prime-brokerage/ (soft-404)
+security_portal:
+  url: https://security-portal.ripple.com/
+  status: 403
+  note: Cloudflare bot challenge; page exists but is not machine-readable anonymously.
+evidence:
+- url: https://ripple.com/products/prime-brokerage/
+  status: 200
+  found: SOC 2 Type II Compliant badge
+- url: https://ripple.com/security/
+  status: 200
+  found: ISO 27001 Compliant, SOC 2 Type II Compliant, link to /legal/bug-bounty/
+- url: https://ripple.com/legal/compliance/
+  status: 200
+  found: Compliance & Disclosures

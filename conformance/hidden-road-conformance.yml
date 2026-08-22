@@ -1,0 +1,124 @@
+generated: '2026-08-22'
+method: probed
+source: >-
+  Live probes of https://auth.hiddenroad.com/.well-known/*, https://api.hiddenroad.com/v0/*,
+  https://static.hiddenroad.com/mica-post-trade-transparency/, and the Ripple Prime product and
+  compliance pages
+standards:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    https://auth.hiddenroad.com/.well-known/oauth-authorization-server returns 200 with
+    authorization_endpoint, token_endpoint, revocation_endpoint and grant_types_supported
+    including client_credentials and authorization_code.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: https://auth.hiddenroad.com/.well-known/oauth-authorization-server -> 200 application/json
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    https://auth.hiddenroad.com/.well-known/openid-configuration -> 200 with issuer, jwks_uri,
+    userinfo_endpoint, claims_supported and id_token_signing_alg_values_supported.
+- id: rfc7636
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256, plain] in the discovery document.
+  note: '`plain` remains advertised alongside S256; S256-only would be stronger.'
+- id: rfc9449
+  name: OAuth 2.0 Demonstrating Proof of Possession (DPoP, RFC 9449)
+  conforms: true
+  evidence: dpop_signing_alg_values_supported = [ES256] in the discovery document.
+- id: rfc7517
+  name: JSON Web Key Set (RFC 7517)
+  conforms: true
+  evidence: https://auth.hiddenroad.com/.well-known/jwks.json -> 200, RSA signing keys.
+- id: rfc9116
+  name: security.txt (RFC 9116)
+  conforms: false
+  evidence: >-
+    No host serves /.well-known/security.txt. hiddenroad.com 301s it to a marketing page;
+    auth.hiddenroad.com and ripple.com return 404; api.hiddenroad.com returns the API Gateway
+    403 for an unrouted path.
+- id: rfc9457
+  name: Problem Details for HTTP APIs (RFC 9457)
+  conforms: false
+  evidence: >-
+    Error bodies are AWS API Gateway defaults — {"message":"Unauthorized"} as application/json,
+    not application/problem+json. See errors/hidden-road-problem-types.yml.
+- id: fapi
+  name: FAPI 2.0 (Financial-grade API)
+  conforms: false
+  evidence: >-
+    No FAPI claim is published and the authorization server advertises `none` and
+    client_secret_post token-endpoint auth plus the implicit and password grants, which FAPI 2.0
+    forbids. DPoP and private_key_jwt ARE supported, so the building blocks are present; the
+    profile is not asserted.
+  note: >-
+    Recorded as a gap rather than a penalty — Hidden Road serves institutional counterparties
+    directly rather than acting as an open-banking third-party provider.
+- id: rfc9116-vdp
+  name: Coordinated vulnerability disclosure
+  conforms: false
+  evidence: >-
+    See security/hidden-road-vulnerability-disclosure.yml — the former responsible-disclosure
+    page is gone and Ripple's Bugcrowd scope excludes prime brokerage.
+- id: soc2-type-ii
+  name: SOC 2 Type II
+  conforms: true
+  evidence: >-
+    "SOC 2 Type II Compliant" badge on https://ripple.com/products/prime-brokerage/ (HTTP 200),
+    consistent with Hidden Road's own 2024 announcement of SOC 2 Type 2 under AICPA and
+    ISAE 3000.
+- id: mtls
+  name: Mutual TLS client authentication (RFC 8705)
+  conforms: false
+  evidence: >-
+    tls_client_certificate_bound_access_tokens is absent from the discovery document and no mTLS
+    token endpoint alias is published.
+domain_standards:
+- id: micar-post-trade-transparency
+  name: >-
+    EU Markets in Crypto-Assets Regulation (MiCAR) — post-trade transparency for crypto-asset
+    transactions
+  regime: eu-crypto-assets
+  conforms: true
+  surface: https://static.hiddenroad.com/mica-post-trade-transparency/
+  evidence: >-
+    Hidden Road Partners CIV NL B.V. publishes a daily CSV per business day at the stable key
+    pattern {date}_mica_civnl_otcspot.csv. The 2026-08-21 file is present; the earliest
+    file in the series is 2025-03-02. Each file carries the ESMA-shaped 13-column header:
+    "Trading date and time, Crypto-asset identification code, Crypto-asset full name, Price,
+    Missing Price, Price notation, Price currency, Quantity, Quantity currency, Quantity
+    notation, Venue of execution, Publication date and time, Venue of Publication" — the field
+    set the MiCAR transparency RTS prescribes.
+  spec_location: >-
+    https://static.hiddenroad.com/mica-post-trade-transparency/2026-08-21_mica_civnl_otcspot.csv
+    (HTTP 200) — header row
+  note: >-
+    This is the ONLY machine-readable contract-shaped artifact Hidden Road publishes to the
+    public. It is a regulator-mandated file feed rather than an API, and it is published because
+    the firm's Netherlands entity holds a MiCAR licence — but the schema is a real, stable,
+    externally-defined domain standard that a counterparty already speaking MiCAR can consume
+    with no bespoke connector.
+- id: cftc-rule-1-55
+  name: CFTC Rule 1.55 FCM customer disclosures
+  regime: us-derivatives
+  conforms: true
+  surface: https://static.hiddenroad.com/hrp-civ-us-llc/
+  evidence: >-
+    Hidden Road Partners CIV US LLC publishes daily customer-funds computations
+    (DFRF_S / DFC2_S filings, NFA ID 832115759) as dated PDFs under
+    /hrp-civ-us-llc/customer-funds-computations-for-current-12-month-period/.
+  note: PDF only — a disclosure obligation met, but not machine-readable.
+regulatory_licences:
+- entity: Hidden Road Partners CIV US LLC
+  regime: US — CFTC FCM + FINRA broker-dealer
+- entity: Hidden Road Partners CIV NL B.V.
+  regime: EU — Netherlands investment firm licence, DNB digital-asset registration, MiCAR licence
+- entity: Hidden Road Partners CIV UK Ltd
+  regime: UK — FCA digital-asset firm registration
+- entity: Hidden Road (Abu Dhabi)
+  regime: ADGM — in-principle approval

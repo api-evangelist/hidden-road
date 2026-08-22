@@ -1,0 +1,85 @@
+generated: '2026-08-22'
+method: probed
+source: >-
+  https://auth.hiddenroad.com/.well-known/openid-configuration (HTTP 200) and the unauthenticated
+  JavaScript bundle served by Hidden Road's own Operational Portal at
+  https://portal.ops.hiddenroad.com/assets/index-b9a72e77.js (HTTP 200)
+note: >-
+  No OpenAPI or public auth reference exists for the Hidden Road API, so this profile was
+  established by probe rather than derived from a spec. Every value below is read verbatim from
+  a first-party Hidden Road host.
+primary_scheme: oauth2
+schemes:
+- name: hiddenroad_oauth2
+  type: oauth2
+  in: header
+  header: Authorization
+  format: Bearer <JWT>
+  issuer: https://auth.hiddenroad.com/
+  audience: https://api.hiddenroad.com/v0/
+  provider: Auth0 (tenant hosted on the company's own auth.hiddenroad.com CNAME)
+  discovery:
+    openid_configuration: https://auth.hiddenroad.com/.well-known/openid-configuration
+    oauth_authorization_server: https://auth.hiddenroad.com/.well-known/oauth-authorization-server
+    jwks_uri: https://auth.hiddenroad.com/.well-known/jwks.json
+  endpoints:
+    authorization: https://auth.hiddenroad.com/authorize
+    token: https://auth.hiddenroad.com/oauth/token
+    device_authorization: https://auth.hiddenroad.com/oauth/device/code
+    userinfo: https://auth.hiddenroad.com/userinfo
+    revocation: https://auth.hiddenroad.com/oauth/revoke
+    end_session: https://auth.hiddenroad.com/oidc/logout
+    registration: https://auth.hiddenroad.com/oidc/register
+    backchannel_authentication: https://auth.hiddenroad.com/bc-authorize
+  grant_types:
+  - client_credentials
+  - authorization_code
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:device_code
+  - urn:ietf:params:oauth:grant-type:token-exchange
+  - urn:ietf:params:oauth:grant-type:jwt-bearer
+  - implicit
+  - password
+  machine_to_machine: true
+  machine_to_machine_note: >-
+    client_credentials is advertised, which is the grant an agent or a treasury system would
+    use against the accountactivity / metrics / atm surfaces.
+  pkce:
+    supported: true
+    methods: [S256, plain]
+  dpop:
+    supported: true
+    algs: [ES256]
+  token_endpoint_auth_methods:
+  - client_secret_basic
+  - client_secret_post
+  - private_key_jwt
+  - none
+  mtls: false
+  id_token_signing_algs: [HS256, RS256, PS256]
+- name: hiddenroad_portal_oidc
+  type: openIdConnect
+  used_by: https://portal.ops.hiddenroad.com/ (Operational Portal, browser SPA)
+  openIdConnectUrl: https://auth.hiddenroad.com/.well-known/openid-configuration
+  scopes: [openid, profile, email]
+  redirect_uri: https://portal.ops.hiddenroad.com/callback
+observed_behaviour:
+- url: https://api.hiddenroad.com/v0/accountactivity/ping
+  status: 401
+  body: '{"message":"Unauthorized"}'
+  meaning: Route exists; bearer token required.
+- url: https://api.hiddenroad.com/v0/openapi.json
+  status: 403
+  body: '{"message":"Missing Authentication Token"}'
+  meaning: >-
+    AWS API Gateway's response for an UNROUTED path. The 401-vs-403 split is what let each
+    real service route be confirmed without credentials.
+credentials_issuance: >-
+  Not self-serve. Credentials are issued to onboarded institutional counterparties; there is no
+  public signup, sandbox key, or developer registration page.
+weaknesses:
+- No public authentication documentation of any kind.
+- >-
+    The API-level scope vocabulary (otc:read, otc:write, accountactivity:*) is not published
+    anywhere a prospective integrator can read it; it was recovered from the portal bundle.
+- No mutual-TLS option advertised for an institutional prime-brokerage surface.

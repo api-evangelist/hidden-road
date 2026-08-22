@@ -1,0 +1,117 @@
+generated: '2026-08-22'
+method: probed
+source: >-
+  Live probes of https://api.hiddenroad.com/v0/*, the Auth0 discovery document at
+  auth.hiddenroad.com, and the Operational Portal's public JS bundle. No public API reference
+  exists, so every field is either observed at runtime or marked undocumented.
+caveat: >-
+  Hidden Road publishes NO developer documentation. Anything below marked `undocumented` is not
+  a gap in this research — it is genuinely unavailable to any prospective integrator without a
+  signed counterparty agreement.
+auth:
+  style: OAuth 2.0 bearer (JWT), Auth0-issued
+  header: 'Authorization: Bearer <JWT>'
+  issuer: https://auth.hiddenroad.com/
+  audience: https://api.hiddenroad.com/v0/
+  machine_to_machine: client_credentials advertised
+  see: authentication/hidden-road-authentication.yml
+base_url:
+  production: https://api.hiddenroad.com/v0
+  sandbox: https://api.sandbox.hiddenroad.com/v0
+  sandbox_note: >-
+    The sandbox host exists and routes /v0/otc/ping (401), but /v0/accountactivity/ping,
+    /v0/atm/ping and /v0/metrics/ping all return the unrouted 403 there — the sandbox appears to
+    cover the OTC surface only.
+services:
+- path: /v0/accountactivity/
+  product: Account Activity API
+  described_as: >-
+    Streams balances, trades, positions, fees and other metrics across all activity transacted
+    with Hidden Road, over a bitemporal store where records are appended rather than
+    overwritten, so a counterparty can rewind to any point in time.
+  scope: 'accountactivity:*'
+- path: /v0/metrics/
+  product: Risk API
+  described_as: >-
+    Streams risk metrics — margin utilisation and tail-risk exposures — in real time across
+    exchanges and OTC for the whole portfolio.
+  scope: undocumented
+- path: /v0/atm/
+  product: Automated Treasury Management (ATM) API
+  described_as: >-
+    Programmatic request for distribution of collateral and credit limits across exchanges and
+    OTC liquidity providers.
+  scope: undocumented
+- path: /v0/otc/
+  product: OTC
+  described_as: Not described in any public Hidden Road material; route confirmed live.
+  scope: 'otc:read, otc:write'
+versioning:
+  style: path segment
+  current: v0
+  see: lifecycle/hidden-road-lifecycle.yml
+pagination:
+  style: undocumented
+  params: undocumented
+  response_fields: undocumented
+field_expansion: undocumented
+sparse_fieldsets: undocumented
+metadata: undocumented
+request_id_tracing:
+  provider_header: x-amzn-RequestId
+  additional: [x-amz-apigw-id, x-amzn-Trace-Id, x-amz-cf-id]
+  client_supplied: undocumented
+  note: >-
+    Correlation identifiers are emitted by AWS infrastructure, not by a first-party convention.
+    They are usable for support escalation but there is no documented client-supplied
+    request-id header.
+error_envelope:
+  shape: '{"message": "<string>"}'
+  rfc9457: false
+  see: errors/hidden-road-problem-types.yml
+rate_limit_signaling:
+  headers: none observed
+  see: rate-limits/hidden-road-rate-limits.yml
+idempotency:
+  supported: undocumented
+  header: undocumented
+  scope: undocumented
+  retention: undocumented
+  note: >-
+    A write surface exists (otc:write, and the ATM API by its own description requests
+    distribution of collateral and credit limits) but no idempotency key, header or replay
+    guarantee is published. An agent retrying a timed-out collateral distribution has no
+    documented way to avoid double-firing it.
+dry_run_mode:
+  supported: undocumented
+  note: >-
+    No simulate/preview/dry-run parameter is documented. A sandbox host exists but covers only
+    the OTC service and has no published onboarding path.
+reversibility:
+  grade: undocumented
+  applicable: true
+  applicable_reason: >-
+    Not a read-only API. The Automated Treasury Management API programmatically moves collateral
+    and credit limits between venues, and `otc:write` is an advertised scope, so writes with
+    real financial consequence are in scope.
+  reversal_operations: []
+  windows: []
+  note: >-
+    NO reversal operation, cancellation path, or unwind window is published for any write on
+    this API, because no reference is published at all. This must not be read as "the API has no
+    reversal" — it almost certainly does, since collateral movements are routinely amended in
+    prime brokerage operations. What is recorded here is that an integrator, and above all an
+    autonomous agent, cannot learn BEFORE acting whether a collateral distribution or an OTC
+    write can be taken back, or within what window. No window is asserted here because Hidden
+    Road states none, and inventing one on a collateral-movement API could cost a counterparty
+    real money.
+  remediation: >-
+    Publish, for each write operation, the reversal operationId and the window inside which it
+    succeeds. On this surface that is the single highest-value line of documentation Hidden Road
+    could ship.
+cross_links:
+  authentication: authentication/hidden-road-authentication.yml
+  scopes: scopes/hidden-road-scopes.yml
+  errors: errors/hidden-road-problem-types.yml
+  lifecycle: lifecycle/hidden-road-lifecycle.yml
+  rate_limits: rate-limits/hidden-road-rate-limits.yml

@@ -1,23 +1,123 @@
 aid: hidden-road
 name: Hidden Road
-description: 'Hidden Road is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Hidden Road is a global, multi-asset non-bank prime broker and clearing firm serving
+  institutional counterparties across digital assets, foreign exchange, precious metals,
+  exchange-traded derivatives, OTC swaps and fixed-income repo. Ripple acquired Hidden Road
+  for $1.25B in 2025 and now operates it as Ripple Prime; hiddenroad.com redirects to
+  ripple.com/products/prime-brokerage/. Hidden Road ships a real, customer-only API suite —
+  the Account Activity API (streamed balances, trades, positions and fees over a bitemporal
+  store), the Risk API (real-time margin utilisation and tail-risk metrics), the Automated
+  Treasury Management API (programmatic collateral and credit-limit distribution) and an OTC
+  surface — served from https://api.hiddenroad.com/v0/ behind an Auth0 OAuth 2.0 / OIDC
+  authorization server at auth.hiddenroad.com. No public reference, OpenAPI, SDK or sandbox
+  documentation is published; the only machine-readable artifact a member of the public can
+  read is the daily MiCA post-trade transparency CSV feed the firm's Netherlands entity
+  publishes under its EU regulatory obligation.
 url: https://raw.githubusercontent.com/api-evangelist/hidden-road/refs/heads/main/apis.yml
+image: https://static.hiddenroad.com/images/logo.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-22'
 modified: '2026-08-22'
 tags:
 - Company
-apis: []
+- Financial Services
+- Prime Brokerage
+- Clearing
+- Digital Assets
+- Foreign Exchange
+- Capital Markets
+- Trading
+- Institutional Finance
+- Collateral Management
+- Risk Management
+- Regulated
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: Hidden Road API (v0)
+  description: >-
+    The Hidden Road prime brokerage and clearing API suite, announced generally available on
+    2023-05-04. Four service surfaces are confirmed live under https://api.hiddenroad.com/v0/ —
+    accountactivity, metrics (risk), atm (automated treasury management) and otc. Every path
+    answers 401 Unauthorized rather than the API Gateway 403 "Missing Authentication Token"
+    served for unrouted paths, which is how each route was confirmed to exist without
+    credentials. Access is OAuth 2.0 bearer, issued by the Auth0 tenant at auth.hiddenroad.com
+    with audience https://api.hiddenroad.com/v0/. No public reference or OpenAPI is published.
+  humanURL: https://ripple.com/products/prime-brokerage/
+  baseURL: https://api.hiddenroad.com/v0
+  tags:
+  - Prime Brokerage
+  - Clearing
+  - Collateral Management
+  - Risk Management
+  - Trading
+  properties:
+  - type: Authentication
+    url: authentication/hidden-road-authentication.yml
+  - type: OAuthScopes
+    url: scopes/hidden-road-scopes.yml
+  - type: ErrorCatalog
+    url: errors/hidden-road-problem-types.yml
+  - type: Conventions
+    url: conventions/hidden-road-conventions.yml
+  - type: OpenIDConnect
+    url: well-known/hidden-road-openid-configuration.json
+- name: Hidden Road MiCA Post-Trade Transparency Feed
+  description: >-
+    A daily CSV feed of OTC spot crypto-asset transactions executed by Hidden Road Partners CIV
+    NL B.V., published under the EU Markets in Crypto-Assets Regulation post-trade transparency
+    obligation. Files follow a stable, dated key pattern
+    (YYYY-MM-DD_mica_civnl_otcspot.csv) and a fixed 13-column ESMA-shaped schema. Public,
+    unauthenticated and current — the series runs from 2025-03-02 to the previous business day.
+  humanURL: https://ripple.com/legal/compliance/
+  baseURL: https://static.hiddenroad.com/mica-post-trade-transparency
+  tags:
+  - Regulatory Reporting
+  - Digital Assets
+  - Market Data
+  - MiCA
+  properties:
+  - type: Conformance
+    url: conformance/hidden-road-conformance.yml
 common:
+- type: TrustCenter
+  url: security/hidden-road-trust-center.yml
+- type: DomainSecurity
+  url: security/hidden-road-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/hidden-road-stock
+  url: https://ripple.com/products/prime-brokerage/
+- type: Login
+  url: https://portal.ops.hiddenroad.com/
+- type: HelpCenter
+  url: https://support.hiddenroad.com/hc/en-us
+- type: Support
+  url: https://ripple.com/contact/sales/
+- type: TermsOfService
+  url: https://ripple.com/legal/terms-of-use/
+- type: PrivacyPolicy
+  url: https://ripple.com/legal/privacy-policy/
+- type: Compliance
+  url: https://ripple.com/legal/compliance/
+- type: Conformance
+  url: conformance/hidden-road-conformance.yml
+- type: Lifecycle
+  url: lifecycle/hidden-road-lifecycle.yml
+- type: Plans
+  url: plans/hidden-road-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/hidden-road-rate-limits.yml
+- type: LLMsTxt
+  url: llms/hidden-road-llms.txt
+- type: WellKnown
+  url: well-known/hidden-road-well-known.yml
+x-enrichment:
+  date: '2026-08-22'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1

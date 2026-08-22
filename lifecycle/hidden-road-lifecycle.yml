@@ -1,0 +1,78 @@
+generated: '2026-08-22'
+method: probed
+source: >-
+  Live probes of api.hiddenroad.com and hiddenroad.com; Ripple press releases; Hidden Road's own
+  press archive recovered from the Wayback CDX index
+versioning:
+  scheme: path
+  pattern: https://api.hiddenroad.com/v{major}/
+  current: v0
+  observed: >-
+    /v0/ is the only version segment referenced by the Operational Portal bundle and the only
+    one that routes. v0 has been the live major since at least the API suite's general release
+    on 2023-05-04 — a three-year-old zero-major on a production institutional surface.
+  policy_published: false
+  policy_note: No versioning policy, migration guide or version-support window is published.
+deprecation:
+  policy_published: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  rfc8594: unknown
+  note: >-
+    No deprecation policy exists publicly and the authentication boundary prevents observing
+    Sunset/Deprecation response headers anonymously.
+sla:
+  published: false
+  note: No public SLA, uptime commitment or incident-history page.
+status_page:
+  published: false
+  probes:
+  - url: https://status.hiddenroad.com/
+    status: NXDOMAIN
+  - url: https://status.ripple.com/
+    status: NXDOMAIN
+  note: >-
+    Neither Hidden Road nor Ripple runs a public status page for the prime brokerage surface.
+    For a firm clearing $3T+ annually this is the most conspicuous operational-transparency gap
+    in the profile.
+changelog:
+  published: false
+  note: No API changelog or release notes.
+company_lifecycle:
+- date: '2023-05-04'
+  event: >-
+    General release of the API suite — Account Activity API, Risk API and Automated Treasury
+    Management (ATM) API.
+  source: >-
+    https://hiddenroad.com/hidden-road-releases-api-functionality-across-account-activities-risk-metrics-and-automated-treasury-management/
+  source_status: 301 (now soft-404s to https://ripple.com/products/prime-brokerage/)
+- date: '2025-04-08'
+  event: Ripple agrees to acquire Hidden Road for $1.25B.
+  source: https://ripple.com/ripple-press/ripple-acquires-prime-broker-hidden-road/
+- date: '2025-10'
+  event: Acquisition closes; Hidden Road is rebranded Ripple Prime.
+  source: https://ripple.com/insights/ripple-closes-hidden-road-acquisition/
+- date: 'observed 2026-08-22'
+  event: >-
+    hiddenroad.com is retired as a content site. EVERY path — including the firm's own
+    regulatory disclosures, its responsible-disclosure policy, its news archive and
+    /robots.txt — returns 301 to the single URL https://ripple.com/products/prime-brokerage/.
+  impact: >-
+    This is a blanket soft-404. Every historical Hidden Road URL now resolves 200 to a marketing
+    page, so link-checkers see a live site while every specific document is unreachable. The
+    API hosts (api.hiddenroad.com, auth.hiddenroad.com, static.hiddenroad.com,
+    portal.ops.hiddenroad.com) are unaffected and still serve under the hiddenroad.com domain.
+  evidence:
+  - url: https://hiddenroad.com/disclosures/responsible-disclosure-of-information/
+    status: 301
+    lands_on: https://ripple.com/products/prime-brokerage/
+  - url: https://hiddenroad.com/robots.txt
+    status: 301
+    lands_on: https://ripple.com/products/prime-brokerage/
+still_live_under_hiddenroad_com:
+- https://api.hiddenroad.com/v0/ (401 on real routes)
+- https://api.sandbox.hiddenroad.com/v0/otc/ping (401)
+- https://auth.hiddenroad.com/.well-known/openid-configuration (200)
+- https://static.hiddenroad.com/ (200, public S3 listing)
+- https://portal.ops.hiddenroad.com/ (200, Operational Portal SPA)
+- https://support.hiddenroad.com/hc/en-us (403 Cloudflare challenge; Zendesk help centre)

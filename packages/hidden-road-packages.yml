@@ -1,0 +1,27 @@
+generated: '2026-08-22'
+method: searched
+source: >-
+  npm registry search, PyPI, RubyGems, crates.io, Maven Central, NuGet, pkg.go.dev, Packagist,
+  the Hidden Road / Ripple Prime public surface, and GitHub
+package_count: 0
+official_sdk_count: 0
+packages: []
+note: >-
+  Hidden Road ships no client libraries. There is no first-party SDK, no CLI, no community
+  wrapper, and no GitHub organisation. Nothing to record a `version:` or `published:` date
+  against — this is a verified zero rather than an unchecked one. Consistent with the surface
+  being customer-only: counterparties are integrated by Hidden Road's own coverage team rather
+  than self-serve. NO SDKs pointer is wired into apis.yml.
+searched:
+- registry: npm
+  query: hiddenroad
+  total_results: 0
+- registry: PyPI
+  packages_probed: [hiddenroad, hidden-road]
+  status: [404, 404]
+- registry: GitHub
+  target: github.com/hiddenroad
+  finding: personal user account, 0 public repositories; no company organisation exists
+- source: https://ripple.com/products/prime-brokerage/
+  status: 200
+  finding: No SDK, download, or developer-resources section
