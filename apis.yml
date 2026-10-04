@@ -49,7 +49,7 @@ created: '2026-08-22'
 modified: '2026-08-22'
 tags:
 - Company
-- Financial-Services
+- Financial Services
 - Prime Brokerage
 - Clearing
 - Digital Assets
@@ -73,6 +73,7 @@ tags_raw:
 - Collateral Management
 - Risk Management
 - Regulated
+- Financial-Services
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
