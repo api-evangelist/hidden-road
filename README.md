@@ -64,5 +64,110 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Hidden Road is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/hidden-road-stock
+Hidden Road is a global, multi-asset non-bank prime broker and clearing firm serving institutional counterparties across digital assets, foreign exchange, precious metals, exchange-traded derivatives, OTC swaps and fixed-income repo. Ripple acquired Hidden Road for $1.25B in 2025 and now operates it as Ripple Prime; hiddenroad.com redirects to ripple.com/products/prime-brokerage/. Hidden Road ships a real, customer-only API suite — the Account Activity API (streamed balances, trades, positions and fees over a bitemporal store), the Risk API (real-time margin utilisation and tail-risk metrics), the Automated Treasury Management API (programmatic collateral and credit-limit distribution) and an OTC surface — served from https://api.hiddenroad.com/v0/ behind an Auth0 OAuth 2.0 / OIDC authorization server at auth.hiddenroad.com. No public reference, OpenAPI, SDK or sandbox documentation is published; the only machine-readable artifact a member of the public can read is the daily MiCA post-trade transparency CSV feed the firm's Netherlands entity publishes under its EU regulatory obligation.
+
+**Areas:** Company · Financial Services · Prime Brokerage · Clearing · Digital Assets · Foreign Exchange · Capital Markets · Trading · Institutional Finance · Collateral Management · Risk Management · Regulated
+
+## Hidden Road on APIs.io
+
+Everything profiled for Hidden Road is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hidden-road/](https://apis.io/providers/hidden-road/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Hidden Road API (v0)](https://apis.io/apis/hidden-road/hidden-road-api-v0/) — The Hidden Road prime brokerage and clearing API suite, announced generally available on 2023-05-04. Four service surfaces are confirmed live under…
+- [Hidden Road MiCA Post-Trade Transparency Feed](https://apis.io/apis/hidden-road/hidden-road-mica-post-trade-transparency-feed/) — A daily CSV feed of OTC spot crypto-asset transactions executed by Hidden Road Partners CIV NL B.V., published under the EU Markets in Crypto-Assets…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Hidden Road Authentication](https://apis.io/security/hidden-road/hidden-road-authentication/)
+- [Hidden Road Domain Security](https://apis.io/security/hidden-road/hidden-road-domain-security/)
+- [Hidden Road Trust Center](https://apis.io/security/hidden-road/hidden-road-trust-center/)
+- [Hidden Road Vulnerability Disclosure](https://apis.io/security/hidden-road/hidden-road-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Hidden Road Scopes](https://apis.io/scopes/hidden-road/hidden-road-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Hidden Road Plans Pricing](https://apis.io/plans/hidden-road/hidden-road-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Hidden Road Rate Limits](https://apis.io/rate-limits/hidden-road/hidden-road-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://ripple.com/products/prime-brokerage/)
+- [Support](https://ripple.com/contact/sales/)
+- [Blog](https://ripple.com/insights/)
+- [Compliance](https://ripple.com/legal/compliance/)
+- [Terms of service](https://ripple.com/legal/terms-of-use/)
+- [Privacy policy](https://ripple.com/legal/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 24.6** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 43.4 |
+
+**Agent readiness 20.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 42.6** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hidden-road/](https://apis.io/providers/hidden-road/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hidden Road: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hidden-road/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
